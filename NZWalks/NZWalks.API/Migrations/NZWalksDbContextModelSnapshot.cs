@@ -45,7 +45,7 @@ namespace NZWalks.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Populaiton")
+                    b.Property<long>("Population")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -72,14 +72,9 @@ namespace NZWalks.API.Migrations
                     b.Property<Guid>("WalkDifficultyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("guid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RegionId");
-
-                    b.HasIndex("WalkDifficultyId");
 
                     b.ToTable("Walks");
                 });
@@ -101,21 +96,11 @@ namespace NZWalks.API.Migrations
 
             modelBuilder.Entity("NZWalks.API.Models.Domain.Walk", b =>
                 {
-                    b.HasOne("NZWalks.API.Models.Domain.Region", "Region")
+                    b.HasOne("NZWalks.API.Models.Domain.Region", null)
                         .WithMany("Walks")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("NZWalks.API.Models.Domain.WalkDifficulty", "WalkDifficulty")
-                        .WithMany()
-                        .HasForeignKey("WalkDifficultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Region");
-
-                    b.Navigation("WalkDifficulty");
                 });
 
             modelBuilder.Entity("NZWalks.API.Models.Domain.Region", b =>
